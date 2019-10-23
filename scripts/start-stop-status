@@ -1,0 +1,20 @@
+#!/bin/sh
+
+case $1 in
+    start)
+        ### Start this package.
+        docker start 
+        exit 0
+    ;;
+    stop)
+        ### Stop this package.
+        docker stop
+        exit 0
+    ;;
+    status)
+        ### Check package alive.
+        docker ps 
+        exit 0
+    ;;
+esac
+
