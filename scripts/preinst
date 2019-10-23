@@ -1,3 +1,4 @@
 #!/bin/sh
 
-docker pull 
+docker pull johnshine/baidunetdisk-crossover-vnc:latest
+exit $?

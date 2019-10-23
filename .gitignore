@@ -1,4 +1,5 @@
 # Prerequisites
+build/
 *.d
 
 # Object files

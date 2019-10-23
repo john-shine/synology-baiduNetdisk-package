@@ -3,18 +3,18 @@
 case $1 in
     start)
         ### Start this package.
-        docker start 
-        exit 0
+        docker run -d johnshine/baidunetdisk-crossover-vnc:latest > /tmp/container_id
+        exit $?
     ;;
     stop)
         ### Stop this package.
-        docker stop
-        exit 0
+        docker stop `cat /tmp/container_id`
+        exit $?
     ;;
     status)
         ### Check package alive.
-        docker ps 
-        exit 0
+        docker ps --no-trunc -q |grep `cat /tmp/container_id`
+        exit $?
     ;;
 esac
 

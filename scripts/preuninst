@@ -1,1 +1,5 @@
-doker rm 
+#!/bin/sh
+
+docker rm -f `cat /tmp/container_id`
+
+exit 0 
