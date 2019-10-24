@@ -1,4 +1,4 @@
-package="baiduNetdisk"
+package="BaiduNetdisk"
 displayname="百度云网盘客户端"
 version="1.0.0"
 firmware=None

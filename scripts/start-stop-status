@@ -3,18 +3,49 @@
 case $1 in
     start)
         ### Start this package.
-        docker run -d johnshine/baidunetdisk-crossover-vnc:latest > /tmp/container_id
-        exit $?
+        echo 'try to run docker baidunetdisk container.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
+        container_id=$(docker run -d johnshine/baidunetdisk-crossover-vnc:latest)
+        ret=$?
+        if [ $ret -eq 0 ]; then
+            echo $container_id > "${SYNOPKG_PKGDEST}/package/logs/cid"
+            echo "start with ${container_id}" >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
+        fi
+        echo "return $ret" >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
+        exit $ret
     ;;
     stop)
         ### Stop this package.
-        docker stop `cat /tmp/container_id`
+        echo 'try to stop baidunetdisk container.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
+        container_id=$(cat "${SYNOPKG_PKGDEST}/package/logs/cid")
+        if [ -z $container_id ]; then
+            echo 'fail to get package container id.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
+            exit 1
+        fi
+        docker stop $container_id >> "${SYNOPKG_PKGDEST}/package/logs/output.log" 2>&1
         exit $?
+    ;;
+    log)
+        echo "${SYNOPKG_PKGDEST}/package/logs/output.log"
     ;;
     status)
         ### Check package alive.
-        docker ps --no-trunc -q |grep `cat /tmp/container_id`
-        exit $?
+        echo 'get status of baidunetdisk container.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
+        container_id=$(cat "${SYNOPKG_PKGDEST}/package/logs/cid")
+        if [ -z $container_id ]; then
+            echo 'fail to get package container id.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
+            exit 1
+        fi
+        docker ps --no-trunc -q | grep $container_id >> "${SYNOPKG_PKGDEST}/package/logs/output.log" 2>&1
+        ret=$?
+        if [ $ret -ne 0 ]; then
+            echo 'baidunetdisk container is not running' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
+        else
+            echo 'baidunetdisk container is running' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
+        fi
+        exit $ret
+    ;;
+    *)
+        exit 0
     ;;
 esac
 

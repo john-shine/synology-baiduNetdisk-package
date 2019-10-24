@@ -7,7 +7,7 @@
             "desc": "百度云网盘下载 - 群晖套件",
             "icon": "images/icon_{0}.png",
             "protocol": "http",
-            "url": "",
+            "url": "/",
             "port": "6900"
         }
     }

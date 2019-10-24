@@ -1,5 +1,6 @@
 #!/bin/sh
 
-docker rm -f `cat /tmp/container_id`
+echo 'start remove docker baidunetdisk container.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
+docker rm -f `cat "${SYNOPKG_PKGDEST}/package/logs/cid"` >> "${SYNOPKG_PKGDEST}/package/logs/output.log" 2>&1
 
 exit 0 
