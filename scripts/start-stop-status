@@ -4,7 +4,7 @@ case $1 in
     start)
         ### Start this package.
         echo 'try to run docker baidunetdisk container.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
-        container_id=$(docker run -d johnshine/baidunetdisk-crossover-vnc:latest)
+        container_id=$(docker run -d -p 6900:6080 johnshine/baidunetdisk-crossover-vnc:latest)
         ret=$?
         if [ $ret -eq 0 ]; then
             echo $container_id > "${SYNOPKG_PKGDEST}/package/logs/cid"
