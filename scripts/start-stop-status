@@ -4,7 +4,29 @@ case $1 in
     start)
         ### Start this package.
         echo 'try to run docker baidunetdisk container.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
-        container_id=$(docker run -d -p 6900:6080 johnshine/baidunetdisk-crossover-vnc:latest)
+        is_exist=0
+        if [ -f "${SYNOPKG_PKGDEST}/package/logs/cid" ]; then
+            echo 'old container id storge file is exist.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
+            container_id=$(cat "${SYNOPKG_PKGDEST}/package/logs/cid")
+            if [ ! -z $container_id ]; then
+                docker ps --no-trunc -q | grep $container_id 
+                if [ $? -eq 0 ]; then
+                    is_exist=1
+                    echo 'docker container is already exist.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
+                else
+                    echo 'docker container is not exist.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
+                fi
+            else
+                echo 'old container id is empty.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
+            fi
+        fi
+
+        if [ $is_exist -eq 0 ]; then
+            container_id=$(docker run -d -p 6900:6080 johnshine/baidunetdisk-crossover-vnc:latest)
+        else
+            docker start $container_id
+        fi
+
         ret=$?
         if [ $ret -eq 0 ]; then
             echo $container_id > "${SYNOPKG_PKGDEST}/package/logs/cid"
