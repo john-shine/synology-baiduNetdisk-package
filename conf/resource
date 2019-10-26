@@ -2,8 +2,7 @@
     "data-share": {
         "shares": [
             {
-                "name": "BDdownload",
-                "permission": {"rw": ["ionewu"]}
+                "name": "BDdownload"
             }
         ]
     },
