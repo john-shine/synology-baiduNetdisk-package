@@ -1,5 +1,10 @@
 #!/bin/sh
 
+container_id=$(cat "/tmp/QTh7VeRDY4tNcmyhxc_id")
+container_name=$(docker ps --filter "id=${container_id}" --format "{{.Names}}")
+if [ -f "/usr/local/etc/services.d/docker_${container_name}.sc" ]; then
+    rm -f "/usr/local/etc/services.d/docker_${container_name}.sc"
+fi
 rm -f "/tmp/QTh7VeRDY4tNcmyhxc_id"
 rm -rf "${SYNOPKG_PKGDEST_VOL}/BDdownload"
 
