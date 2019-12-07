@@ -2,7 +2,7 @@
 
 echo 'start remove docker baidunetdisk container.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
 
-container_id=$(cat "/tmp/QTh7VeRDY4tNcmyhxc_id")
+container_id=$(cat "${SYNOPKG_PKGDEST}/package/cid")
 container_name=$(docker ps --filter "id=${container_id}" --format "{{.Names}}")
 
 docker stop -t 0 $container_id 2>>"${SYNOPKG_PKGDEST}/package/logs/output.log"
