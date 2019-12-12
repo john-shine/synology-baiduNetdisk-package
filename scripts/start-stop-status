@@ -9,7 +9,7 @@ case $1 in
             echo 'old container id storge file is exist.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
             container_id=$(cat "${SYNOPKG_PKGDEST}/package/cid")
             if [ ! -z $container_id ]; then
-                docker ps --no-trunc -q | grep $container_id 
+                docker ps --no-trunc -aq | grep $container_id 
                 if [ $? -eq 0 ]; then
                     is_exist=1
                     echo 'docker container is already exist.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
