@@ -3,14 +3,21 @@
 echo 'start remove docker baidunetdisk container.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
 
 container_id=$(cat "${SYNOPKG_PKGDEST}/package/cid")
+if [ -z $container_id ]; then
+    # if container not exist, just exit
+    exit 0
+fi
+
 container_name=$(docker ps --filter "id=${container_id}" --format "{{.Names}}")
 
 docker stop -t 0 $container_id 2>>"${SYNOPKG_PKGDEST}/package/logs/output.log"
 docker rm -f $container_id >> "${SYNOPKG_PKGDEST}/package/logs/output.log" 2>&1
 ret=$?
 
-if [ -f "/usr/local/etc/services.d/docker_${container_name}.sc" ]; then
-    rm -f "/usr/local/etc/services.d/docker_${container_name}.sc"
+if [ ! -z $container_name]; then
+    if [ -f "/usr/local/etc/services.d/docker_${container_name}.sc" ]; then
+        rm -f "/usr/local/etc/services.d/docker_${container_name}.sc"
+    fi
 fi
 
 exit $ret
