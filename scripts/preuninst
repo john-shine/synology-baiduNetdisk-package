@@ -10,9 +10,10 @@ fi
 
 container_name=$(docker ps --filter "id=${container_id}" --format "{{.Names}}")
 
-docker stop -t 0 $container_id 2>>"${SYNOPKG_PKGDEST}/package/logs/output.log"
-docker rm -f $container_id >> "${SYNOPKG_PKGDEST}/package/logs/output.log" 2>&1
-ret=$?
+if [ -x "$(command -v docker)" ]; then
+	docker stop -t 0 $container_id 2>>"${SYNOPKG_PKGDEST}/package/logs/output.log"
+	docker rm -f $container_id >> "${SYNOPKG_PKGDEST}/package/logs/output.log" 2>&1
+fi
 
 if [ ! -z $container_name]; then
     if [ -f "/usr/local/etc/services.d/docker_${container_name}.sc" ]; then
@@ -20,4 +21,4 @@ if [ ! -z $container_name]; then
     fi
 fi
 
-exit $ret
+exit 0
