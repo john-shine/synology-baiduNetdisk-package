@@ -11,7 +11,7 @@ fi
 container_name=$(docker ps --filter "id=${container_id}" --format "{{.Names}}")
 
 if [ -x "$(command -v docker)" ]; then
-	docker stop -t 0 $container_id 2>>"${SYNOPKG_PKGDEST}/package/logs/output.log"
+	docker stop -t 0 $container_id >>"${SYNOPKG_PKGDEST}/package/logs/output.log" 2>&1
 	docker rm -f $container_id >> "${SYNOPKG_PKGDEST}/package/logs/output.log" 2>&1
 fi
 

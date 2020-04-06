@@ -26,7 +26,7 @@ case $1 in
             chmod 777 "${SYNOPKG_PKGDEST_VOL}/BDdownload"
             container_id=$(docker run -d -v "${SYNOPKG_PKGDEST_VOL}/BDdownload":"/home/baidu/baidunetdiskdownload/" -p 6900:6080 johnshine/baidunetdisk-crossover-vnc:latest 2>>"${SYNOPKG_PKGDEST}/package/logs/output.log")
         else
-            docker start $container_id 2>>"${SYNOPKG_PKGDEST}/package/logs/output.log"
+            docker start $container_id >>"${SYNOPKG_PKGDEST}/package/logs/output.log" 2>&1
         fi
 
         ret=$?
@@ -45,7 +45,7 @@ case $1 in
             echo 'fail to get package container id.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
             exit 1
         fi
-        docker stop $container_id 2>>"${SYNOPKG_PKGDEST}/package/logs/output.log"
+        docker stop $container_id >> "${SYNOPKG_PKGDEST}/package/logs/output.log" 2>&1
         exit $?
     ;;
     log)
