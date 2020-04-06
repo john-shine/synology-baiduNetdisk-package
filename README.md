@@ -10,8 +10,14 @@
 
 ./pkgCreate.sh 即可在build目录生成spk安装包。
 
-## 问题
+## 问题（2020-04-06更新）
 
-如果遇到退出客户端后再次打开客户端，停留在加载界面的进度条中，一直无法进入主界面的情况，需要进入Docker套件，然后点击运行中的johnshine/baidunetdisk-crossover-vnc:latest容器，停止掉再清除容器，最后再启动容器即可。
+1. 客户端停留在加载界面的进度条中，一直无法进入主界面，也不出现登录界面，怎么办？
 
-这个应该是客户端本身的登录问题，清除后，需要重新登录客户端。
+   在BDdownload文件夹下创建一个.reset文件夹。然后，重启johnshine/baidunetdisk-crossover-vnc:latest对应的docker容器即可。
+
+   这个应该是客户端本身的登录问题，清除后，需要重新登录客户端。
+
+2. 如何设置vnc的连接密码？
+
+   首先在本地创建passwd.txt文本文件，内容写上vnc的连接密码。然后在BDdownload文件夹下创建一个.vnc文件夹，将passwd.txt文件上传到.vnc文件夹下面。最后重启对应的docker容器即可。
