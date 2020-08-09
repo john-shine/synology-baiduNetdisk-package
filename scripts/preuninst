@@ -15,7 +15,7 @@ if [ -x "$(command -v docker)" ]; then
 	docker rm -f $container_id >> "${SYNOPKG_PKGDEST}/package/logs/output.log" 2>&1
 fi
 
-if [ ! -z $container_name]; then
+if [ ! -z $container_name ]; then
     if [ -f "/usr/local/etc/services.d/docker_${container_name}.sc" ]; then
         rm -f "/usr/local/etc/services.d/docker_${container_name}.sc"
     fi
