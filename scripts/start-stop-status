@@ -24,7 +24,7 @@ case $1 in
         if [ $is_exist -eq 0 ]; then
             mkdir -p "${SYNOPKG_PKGDEST_VOL}/BDdownload"
             chmod 777 "${SYNOPKG_PKGDEST_VOL}/BDdownload"
-            container_id=$(docker run -d -v "${SYNOPKG_PKGDEST_VOL}/BDdownload":"/home/baidu/baidunetdiskdownload/" -p 6900:6080 johnshine/baidunetdisk-crossover-vnc:latest 2>>"${SYNOPKG_PKGDEST}/package/logs/output.log")
+            container_id=$(docker run -d -v "${SYNOPKG_PKGDEST_VOL}/BDdownload":"/home/baidu/baidunetdiskdownload/" --add-host update.pan.baidu.com:127.0.0.1 -p 6900:6080 johnshine/baidunetdisk-crossover-vnc:latest 2>>"${SYNOPKG_PKGDEST}/package/logs/output.log")
         else
             docker start $container_id >>"${SYNOPKG_PKGDEST}/package/logs/output.log" 2>&1
         fi
