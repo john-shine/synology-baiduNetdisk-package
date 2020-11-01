@@ -2,7 +2,7 @@
 
 百度云的群晖套件，基于百度云Linux版客户端
 
-#### 请注意务必升级群晖至DSM6.2.x以上的版本，以下版本的DSM由于Linux内核为v3版本，无法运行最新版本的百度云linux客户端.[官方更新日志](https://www.synology.com/zh-cn/security/advisory/Synology_SA_19_28)
+#### 请注意务必升级群晖至DSM6.2.x以上的版本，以下版本的DSM由于Linux内核为v3版本，无法运行最新版本的百度云linux客户端。[官方更新日志](https://www.synology.com/zh-cn/security/advisory/Synology_SA_19_28)
 
 ## 安装
 
