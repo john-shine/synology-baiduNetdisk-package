@@ -1,7 +1,8 @@
 package="BaiduNetdisk"
 displayname="百度云网盘客户端"
+version="2.0.0"
 firmware=None
-os_min_ver="5.2-5565"
+os_min_ver="7.0-40000"
 description="请注意卸载此套件会删除BDdownload共享文件夹，请注意保存重要的数据至其它目录。安装此套件之前，请先安装Docker套件。其次，为了加快安装的进度，请现在Docker注册表中先行下载 johnshine/baidunetdisk-crossover-vnc:latest 这个映像，这样能极大的缩短安装时间。安装完成后，即可在应用菜单中找到百度云客户端的启动图标。"
 arch="noarch"
 maintainer="John Shine"
