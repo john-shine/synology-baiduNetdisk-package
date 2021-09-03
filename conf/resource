@@ -8,32 +8,21 @@
 	"docker": {
 		"services": [{
 			"service": "baidunetdisk",
-			"build": "odoo_docker",
 			"image": "johnshine/baidunetdisk-crossover-vnc",
-			"container_name": "baidunetdisk",
+			"container_name": "Baidunetdisk",
 			"tag": "latest",
-			"environment": [{
-				"env_var": "HOST",
-				"env_value": "odoo_db"
-			}, {
-				"env_var": "USER",
-				"env_value": "odoo"
-			}, {
-				"env_var": "PASSWORD",
-				"env_value": "odoo"
-			}],
+            "restart": "always",
+			"environment": [],
 			"shares": [{
-				"host_dir": "odoo_data",
-				"mount_point": "/var/lib/odoo"
+				"host_dir": "BDdownload",
+				"mount_point": "/home/baidu/baidunetdiskdownload"
 			}],
 			"ports": [{
 				"host_port": "{{wizard_http_port}}",
 				"container_port": "6080",
 				"protocol": "tcp"
 			}],
-			"depends": [{
-				"dep_service": "odoo_db"
-			}]
+			"depends": []
 		}]
 	}
 }
