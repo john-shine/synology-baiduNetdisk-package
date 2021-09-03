@@ -3,72 +3,22 @@
 case $1 in
     start)
         ### Start this package.
-        echo 'try to run docker baidunetdisk container.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
-        is_exist=0
-        if [ -f "${SYNOPKG_PKGDEST}/package/cid" ]; then
-            echo 'old container id storge file is exist.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
-            container_id=$(cat "${SYNOPKG_PKGDEST}/package/cid")
-            if [ ! -z $container_id ]; then
-                docker ps --no-trunc -aq | grep $container_id 
-                if [ $? -eq 0 ]; then
-                    is_exist=1
-                    echo 'docker container is already exist.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
-                else
-                    echo 'docker container is not exist.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
-                fi
-            else
-                echo 'old container id is empty.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
-            fi
-        fi
-
-        if [ $is_exist -eq 0 ]; then
-            mkdir -p "${SYNOPKG_PKGDEST_VOL}/BDdownload"
-            chmod 777 "${SYNOPKG_PKGDEST_VOL}/BDdownload"
-            container_id=$(docker run -d -v "${SYNOPKG_PKGDEST_VOL}/BDdownload":"/home/baidu/baidunetdiskdownload/" --add-host update.pan.baidu.com:127.0.0.1 -p 6900:6080 johnshine/baidunetdisk-crossover-vnc:latest 2>>"${SYNOPKG_PKGDEST}/package/logs/output.log")
-        else
-            docker start $container_id >>"${SYNOPKG_PKGDEST}/package/logs/output.log" 2>&1
-        fi
-
-        ret=$?
-        if [ $ret -eq 0 ]; then
-            echo $container_id > "${SYNOPKG_PKGDEST}/package/cid"
-            echo "start with ${container_id}" >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
-        fi
-        echo "return $ret" >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
-        exit $ret
+        exit 0
     ;;
     stop)
         ### Stop this package.
-        echo 'try to stop baidunetdisk container.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
-        container_id=$(cat "${SYNOPKG_PKGDEST}/package/cid")
-        if [ -z $container_id ]; then
-            echo 'fail to get package container id.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
-            exit 1
-        fi
-        docker stop $container_id >> "${SYNOPKG_PKGDEST}/package/logs/output.log" 2>&1
-        exit $?
+        exit 0
     ;;
     log)
         echo "${SYNOPKG_PKGDEST}/package/logs/output.log"
     ;;
     status)
         ### Check package alive.
-        echo 'get status of baidunetdisk container.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
-        container_id=$(cat "${SYNOPKG_PKGDEST}/package/cid")
-        if [ -z $container_id ]; then
-            echo 'fail to get package container id.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
-            exit 1
-        fi
-        docker ps --no-trunc -q | grep $container_id
-        ret=$?
-        if [ $ret -ne 0 ]; then
-            echo 'baidunetdisk container is not running' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
-        else
-            echo 'baidunetdisk container is running' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
-        fi
-        exit $ret
+        echo 'get status of Baidunetdisk container.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
+        /usr/local/bin/docker_inspect Baidunetdisk | grep -q "\"Status\": \"running\"," || exit 1
     ;;
     *)
+        echo "Usage: $0 {start|stop|status}" > &2
         exit 0
     ;;
 esac
