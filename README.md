@@ -38,3 +38,14 @@
    ```docker load < baidunetdisk-crossover-vnc\:latest.tar```
    
    https://590m.com/f/31142793-480894558-bb2be5 （访问密码：1201）
+   
+5. 进入novnc界面全屏灰色，没有出现百度网盘客户端界面是怎么回事？
+
+   这样说明网盘客户端无法启动，就需要查看以下内核的版本。输入uname -r, 必须是4.0以上的内核才支持最新版本的客户端。
+   目前发现DS3615xs的DSM 6.2.3-25426 Update 3的内核版本为3.10.105，无法支持最新版本的镜像，只能使用3.x及以下版本的镜像: 
+   
+   ```docker pull johnshine/baidunetdisk-crossover-vnc:3.1```
+   
+   ```docker tag johnshine/baidunetdisk-crossover-vnc:3.1 johnshine/baidunetdisk-crossover-vnc:latest。```
+   
+   然后Docker套件内删除原有的docker容器，并重启该群晖套件即可。
