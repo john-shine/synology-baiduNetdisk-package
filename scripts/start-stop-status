@@ -10,15 +10,13 @@ case $1 in
         exit 0
     ;;
     log)
-        echo "${SYNOPKG_PKGDEST}/package/logs/output.log"
+        /bin/curl -v 127.0.0.1:6900 -o /dev/null
     ;;
     status)
-        ### Check package alive.
-        echo 'get status of Baidunetdisk container.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
-        /usr/local/bin/docker_inspect Baidunetdisk | grep -q "\"Status\": \"running\"," || exit 1
+        /bin/curl -s 127.0.0.1:6900 -o /dev/null
     ;;
     *)
-        echo "Usage: $0 {start|stop|status}" > &2
+        echo "Usage: $0 {start|stop|status}"
         exit 0
     ;;
 esac

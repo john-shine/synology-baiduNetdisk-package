@@ -1,6 +1,3 @@
 #!/bin/sh
 
-rm -f "${SYNOPKG_PKGDEST}/package/cid"
-rm -rf "${SYNOPKG_PKGDEST_VOL}/BDdownload"
-
 exit 0

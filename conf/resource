@@ -4,25 +4,5 @@
 			"name": "BDdownload"
 		}]
 	},
-	"service-cfg": {},
-	"docker": {
-		"services": [{
-			"service": "baidunetdisk",
-			"image": "johnshine/baidunetdisk-crossover-vnc",
-			"container_name": "Baidunetdisk",
-			"tag": "latest",
-            "restart": "always",
-			"environment": [],
-			"shares": [{
-				"host_dir": "BDdownload",
-				"mount_point": "/home/baidu/baidunetdiskdownload"
-			}],
-			"ports": [{
-				"host_port": "{{wizard_http_port}}",
-				"container_port": "6080",
-				"protocol": "tcp"
-			}],
-			"depends": []
-		}]
-	}
+	"service-cfg": {}
 }

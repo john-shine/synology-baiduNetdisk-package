@@ -1,6 +1,3 @@
 #!/bin/sh
 
-mkdir -p "${SYNOPKG_PKGDEST}/package/logs/"
-echo 'start pull docker into DSM.' >> "${SYNOPKG_PKGDEST}/package/logs/output.log"
-docker pull johnshine/baidunetdisk-crossover-vnc:latest >> "${SYNOPKG_PKGDEST}/package/logs/output.log" 2>&1
-exit $?
+exit 0
